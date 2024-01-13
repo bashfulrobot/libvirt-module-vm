@@ -61,6 +61,13 @@ users:
     lock_passwd: false
     ssh-authorized-keys:
       - ${jsonencode(trimspace(file("${var.path_to_ssh_public_key}")))}
+  - name: root
+    home: /root
+    shell: /bin/bash
+    passwd: '${var.admin_password_hash}'
+    lock_passwd: false
+    ssh-authorized-keys:
+      - ${jsonencode(trimspace(file("${var.path_to_ssh_public_key}")))}
 ssh_pwauth: True
 runcmd:
   - [ bash, -c, 'echo "Cloud-init start: $(TZ=":America/Vancouver" date "+%Y-%m-%d %H:%M:%S.%N %Z")" >> /home/${var.admin_name}/cloud-init-run.log' ]
