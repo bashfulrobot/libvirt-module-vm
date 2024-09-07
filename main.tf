@@ -70,8 +70,8 @@ users:
       - ${jsonencode(trimspace(file("${var.path_to_ssh_public_key}")))}
 ssh_pwauth: True
 runcmd:
-  - [ bash -c, 'apt update; apt install traceroute -y']
   - [ bash, -c, 'echo "Cloud-init start: $(TZ=":America/Vancouver" date "+%Y-%m-%d %H:%M:%S.%N %Z")" >> /home/${var.admin_name}/cloud-init-run.log' ]
+  - [ bash, -c, 'echo "Running: apt update; apt install traceroute -y" >> /home/${var.admin_name}/cloud-init-run.log; apt update; apt install traceroute -y >> /home/${var.admin_name}/cloud-init-run.log 2>&1' ]
   - [ bash, -c, 'echo "Cloud-init end: $(TZ=":America/Vancouver" date "+%Y-%m-%d %H:%M:%S.%N %Z")" >> /home/${var.admin_name}/cloud-init-run.log' ]
 EOF
 }
